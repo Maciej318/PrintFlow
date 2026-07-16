@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache"
 
 
 export async function login(formData:FormData) {
+  console.log("LOGIN");
     const cookieStore = await cookies()
     const supabase = createClient(cookieStore)
 
@@ -25,6 +26,7 @@ export async function login(formData:FormData) {
 }
 
 export async function signup(formData:FormData) {
+  console.log("SINGUP");
     const cookieStore = await cookies()
     const supabase = createClient(cookieStore)
 
@@ -205,5 +207,37 @@ export async function updateAppSettings(costPerGram: number, costPerHour: number
 
   revalidatePath('/dashboard/admin')
   revalidatePath('/dashboard') 
+  return { success: true }
+}
+
+export async function deleteOrder(orderId: string) {
+  const cookieStore = await cookies()
+  const supabase = createClient(cookieStore)
+
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) {
+    return { success: false, error: 'Brak autoryzacji' }
+  }
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .single()
+
+  if (profile?.role !== 'admin') {
+    return { success: false, error: 'Tylko administrator może usuwać zlecenia' }
+  }
+
+  const { error } = await supabase
+    .from('orders')
+    .delete()
+    .eq('id', orderId)
+
+  if (error) {
+    console.error('Błąd podczas usuwania zlecenia:', error)
+    return { success: false, error: error.message }
+  }
+
   return { success: true }
 }

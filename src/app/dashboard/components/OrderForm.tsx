@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { createOrder } from '@/actions'
 
-// Definiujemy interfejs dla przekazywanych stawek
+
 interface OrderFormProps {
   costPerGram: number
   costPerHour: number
@@ -15,7 +15,7 @@ export default function OrderForm({ costPerGram, costPerHour }: OrderFormProps) 
   const [hours, setHours] = useState<number>(0)
   const [cost, setCost] = useState<string>('0.00')
 
-  // Funkcja obliczająca cenę na podstawie przekazanych z góry stawek
+  
   const handleKalkulacja = (w: number, h: number, q: number) => {
     const total = ((w * costPerGram) + (h * costPerHour)) * q
     setCost(total.toFixed(2))
@@ -48,7 +48,7 @@ export default function OrderForm({ costPerGram, costPerHour }: OrderFormProps) 
             <span className="text-xs font-bold text-blue-600 uppercase tracking-wider block">
               Kalkulator danych ze Slicera
             </span>
-            {/* Opcjonalna informacja dla użytkownika o aktualnych stawkach */}
+           
             <span className="text-[10px] text-slate-400 font-medium">
               Stawki: {costPerGram.toFixed(2)}zł/g | {costPerHour.toFixed(2)}zł/h
             </span>

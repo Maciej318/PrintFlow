@@ -11,7 +11,7 @@ export default async function LoginPage(props: {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4 text-foreground">
       <div className="w-full max-w-md rounded-2xl border border-border bg-card p-8 shadow-2xl">
-        {/* Nagłówek */}
+
         <div className="mb-8 text-center">
           <h1 className="text-2xl font-bold tracking-tight">
             System Druku 3D
@@ -21,7 +21,7 @@ export default async function LoginPage(props: {
           </p>
         </div>
 
-        {/* Formularz */}
+  
         <form className="space-y-4">
           <div>
             <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-muted">
@@ -51,7 +51,7 @@ export default async function LoginPage(props: {
             />
           </div>
 
-          {/* Error */}
+   
           {error && (
             <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-3 text-xs text-red-400">
               <CircleX className='w-5 h-5'/>
@@ -59,7 +59,6 @@ export default async function LoginPage(props: {
             </div>
           )}
 
-          {/* Message */}
           {message && (
             <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-3 text-xs text-emerald-400">
               <Bell className='w-5 h-5'/>
@@ -67,7 +66,7 @@ export default async function LoginPage(props: {
             </div>
           )}
 
-          {/* Przyciski */}
+   
           <div className="flex flex-col gap-2 pt-2">
             <button
               type="submit"

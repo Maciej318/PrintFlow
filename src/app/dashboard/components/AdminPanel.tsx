@@ -28,29 +28,29 @@ export default function AdminPanel({ initialWorkers, initialSettings, currentAdm
   const [settings, setSettings] = useState<Settings>(initialSettings)
   const [isPending, startTransition] = useTransition()
 
-  // Formularz cenowy
+
   const [costPerGram, setCostPerGram] = useState(initialSettings.cost_per_gram.toString())
   const [costPerHour, setCostPerHour] = useState(initialSettings.cost_per_hour.toString())
   const [saveSuccess, setSaveSuccess] = useState(false)
 
-  // Zgoda na dostęp (Akceptacja pracownika)
+ 
   const handleToggleApproval = (workerId: string, currentStatus: boolean) => {
     const newStatus = !currentStatus
     
-    // Szybka zmiana w UI (optymistyczna)
+    
     setWorkers(prev => prev.map(w => w.id === workerId ? { ...w, is_approved: newStatus } : w))
 
     startTransition(async () => {
       const result = await toggleWorkerApproval(workerId, newStatus)
       if (!result.success) {
         alert('Błąd: ' + result.error)
-        // Cofnięcie zmiany w przypadku błędu
+        
         setWorkers(prev => prev.map(w => w.id === workerId ? { ...w, is_approved: currentStatus } : w))
       }
     })
   }
 
-  // Usuwanie pracownika
+
   const handleDeleteWorker = async (workerId: string, email: string) => {
     if (!confirm(`Czy na pewno chcesz usunąć pracownika ${email}? Usunie to trwale jego konto logowania!`)) return
 
@@ -64,7 +64,7 @@ export default function AdminPanel({ initialWorkers, initialSettings, currentAdm
     })
   }
 
-  // Zapisywanie cennika
+
   const handleSaveSettings = (e: React.FormEvent) => {
     e.preventDefault()
     setSaveSuccess(false)
@@ -91,7 +91,7 @@ export default function AdminPanel({ initialWorkers, initialSettings, currentAdm
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      {/* LEWA STRONA: LISTA PRACOWNIKÓW (2/3 szerokości) */}
+   
       <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="p-5 border-b border-slate-100 flex items-center justify-between">
           <h2 className="font-bold text-slate-800 flex items-center gap-2">
@@ -162,7 +162,7 @@ export default function AdminPanel({ initialWorkers, initialSettings, currentAdm
         </div>
       </div>
 
-      {/* PRAWA STRONA: CENNIK (1/3 szerokości) */}
+      
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-6 self-start">
         <h2 className="font-bold text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-4">
           <Coins className="w-5 h-5 text-amber-500" /> Stawki Wydruków 3D

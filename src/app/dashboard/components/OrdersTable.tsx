@@ -1,7 +1,7 @@
 'use client'
 
-import { updateOrderStatus } from '@/actions';
-import { Download, FileText } from 'lucide-react'; // Ikona dokumentu
+import { updateOrderStatus, deleteOrder } from '@/actions';
+import { Download, FileText, Trash2 } from 'lucide-react'; 
 import { useTransition, useState, useEffect } from 'react';
 
 interface Order {
@@ -14,21 +14,18 @@ interface Order {
   status: string
   due_date: string
   created_at: string
-  notes?: string | null // Kolumna notes z bazy danych
+  notes?: string | null
 }
 
 interface OrdersTableProps {
   orders: Order[]
-  showFullColumns: boolean
+  showFullColumns: boolean 
 }
 
 export default function OrdersTable({ orders, showFullColumns }: OrdersTableProps) {
   const [isPending, startTransition] = useTransition()
-  
-  // Lokalny stan na zamówienia
   const [localOrders, setLocalOrders] = useState<Order[]>(orders)
 
-  // Synchronizacja stanu lokalnego z nadesłanymi danymi
   useEffect(() => {
     setLocalOrders(orders)
   }, [orders])
@@ -52,13 +49,38 @@ export default function OrdersTable({ orders, showFullColumns }: OrdersTableProp
     startTransition(async () => {
       try {
         const result = await updateOrderStatus(orderId, newStatus)
-        
         if (!result || !result.success) {
           alert('Nie udało się zaktualizować statusu: ' + (result?.error || 'Błąd serwera'))
           setLocalOrders(previousOrders)
         }
       } catch (error: any) {
         alert('Wystąpił nieoczekiwany błąd połączenia: ' + error.message)
+        setLocalOrders(previousOrders)
+      }
+    })
+  }
+
+  
+  const handleDeleteOrder = (orderId: string, modelName: string) => {
+    
+    if (!confirm(`Czy na pewno chcesz bezpowrotnie usunąć zlecenie: "${modelName}"?`)) {
+      return
+    }
+
+    const previousOrders = [...localOrders]
+
+    
+    setLocalOrders(prev => prev.filter(order => order.id !== orderId))
+
+    startTransition(async () => {
+      try {
+        const result = await deleteOrder(orderId)
+        if (!result || !result.success) {
+          alert('Nie udało się usunąć zlecenia: ' + (result?.error || 'Błąd serwera'))
+          setLocalOrders(previousOrders) 
+        }
+      } catch (error: any) {
+        alert('Wystąpił błąd połączenia: ' + error.message)
         setLocalOrders(previousOrders)
       }
     })
@@ -80,7 +102,7 @@ export default function OrdersTable({ orders, showFullColumns }: OrdersTableProp
             ) : (
               <th className="py-4 px-4">Zakończono</th>
             )}{showFullColumns && (
-              <th className="py-4 px-4 text-center">Akcje</th>
+              <th className="py-4 px-4 text-right">Akcje</th>
             )}
           </tr>
         </thead>
@@ -89,7 +111,6 @@ export default function OrdersTable({ orders, showFullColumns }: OrdersTableProp
           {localOrders.map(order => (
             <tr key={order.id} className="hover:bg-slate-50/50 transition">
               
-              {/* Kolumna z Nazwą */}
               <td className="py-4 px-4 font-medium text-slate-900">
                 {order.model_name}
               </td>
@@ -131,12 +152,11 @@ export default function OrdersTable({ orders, showFullColumns }: OrdersTableProp
                 {showFullColumns ? order.due_date : new Date(order.created_at).toLocaleDateString('pl-PL')}
               </td>
 
-              {/* Kolumna z Akcjami: Pobieranie + Notatki obok siebie */}
               {showFullColumns && (
                 <td className="py-4 px-4">
                   <div className="flex items-center justify-end gap-2">
                     
-                    {/* Dymek uwag (Tooltip) - wyświetla się tylko jeśli notatki istnieją */}
+                   
                     {order.notes && (
                       <div className="relative group flex items-center">
                         <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-700 font-medium text-xs rounded-lg border border-amber-200 transition cursor-help">
@@ -144,7 +164,6 @@ export default function OrdersTable({ orders, showFullColumns }: OrdersTableProp
                           <span>Uwagi</span>
                         </div>
                         
-                        {/* Stylowy dymek pozycjonowany w lewo, żeby nie wychodził poza ekran */}
                         <div className="absolute right-0 bottom-full mb-2 hidden group-hover:block w-72 bg-slate-950 text-white text-xs rounded-xl p-3 shadow-2xl z-50 animate-in fade-in slide-in-from-bottom-1 duration-150">
                           <div className="font-bold text-amber-400 border-b border-slate-800 pb-1 mb-1.5 flex items-center gap-1.5">
                             <FileText className="w-3.5 h-3.5" />
@@ -153,13 +172,12 @@ export default function OrdersTable({ orders, showFullColumns }: OrdersTableProp
                           <p className="whitespace-pre-wrap leading-relaxed font-normal text-slate-200 break-words">
                             {order.notes}
                           </p>
-                          {/* Mała strzałka pod dymkiem po prawej stronie */}
                           <div className="absolute top-full right-6 border-4 border-transparent border-t-slate-955" />
                         </div>
                       </div>
                     )}
 
-                    {/* Przycisk pobierania STL */}
+                 
                     <a 
                       href={`${SUPABASE_PROJECT_URL}/storage/v1/object/public/order-files/${order.file_path}`} 
                       download={order.model_name}
@@ -170,6 +188,16 @@ export default function OrdersTable({ orders, showFullColumns }: OrdersTableProp
                       <Download className="w-4 h-4" />
                       Pobierz STL
                     </a>
+
+               
+                    <button
+                      onClick={() => handleDeleteOrder(order.id, order.model_name)}
+                      disabled={isPending}
+                      className="inline-flex items-center justify-center p-2 text-rose-600 hover:text-white hover:bg-rose-600 border border-rose-100 hover:border-rose-600 rounded-lg transition-all duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                      title="Usuń zlecenie"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
 
                   </div>
                 </td>

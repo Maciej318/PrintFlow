@@ -66,14 +66,17 @@ export default function OrderForm({ costPerGram, costPerHour }: OrderFormProps) 
               />
             </div>
             <div>
-              <label className="block text-xs text-slate-500 mb-1.5">Czas (godziny)</label>
+              <label className="block text-xs text-slate-500 mb-1.5">
+                Czas wydruku (w godzinach)
+              </label>
               <input 
-                type="number" 
-                min="0" 
-                step="any"
-                value={hours} 
-                onChange={(e) => { const v = parseFloat(e.target.value) || 0; setHours(v); handleKalkulacja(weight, v, quantity) }} 
-                className="w-full rounded-xl border border-slate-200 bg-white p-3 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 transition" 
+                type="number"
+                step="0.1"
+                min="0.1"
+                value={hours}
+                onChange={(e) => setHours(parseFloat(e.target.value) || 0)}
+                className="w-full rounded-xl border border-slate-200 bg-white p-3 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 transition"
+                required
               />
             </div>
           </div>
@@ -97,7 +100,7 @@ export default function OrderForm({ costPerGram, costPerHour }: OrderFormProps) 
           </div>
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-              Koszt (zł)
+              Proponowany Koszt (zł)
             </label>
             <input 
               name="estimated_cost" 

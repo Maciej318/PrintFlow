@@ -1,6 +1,6 @@
 'use client'
 
-import { ClipboardList, CirclePlus, History, LogOut, Settings } from "lucide-react"
+import { ClipboardList, CirclePlus, History, LogOut, Settings, BarChart3 } from "lucide-react" // <-- Dodana ikona BarChart3
 
 interface SidebarProps {
   activeTab: string
@@ -13,6 +13,8 @@ export default function Sidebar({ activeTab, setActiveTab, isAdmin, onLogout }: 
   return (
     <aside className="w-72 bg-white border-l border-slate-200 p-6 flex flex-col justify-between shadow-sm">
       <div className="space-y-2">
+        
+        {/* Zakolejkowane wydruki */}
         <button 
           onClick={() => setActiveTab('kolejka')} 
           className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl font-medium text-sm transition cursor-pointer ${activeTab === 'kolejka' ? 'bg-blue-600 text-white shadow-md shadow-blue-500/10' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'}`}
@@ -21,6 +23,7 @@ export default function Sidebar({ activeTab, setActiveTab, isAdmin, onLogout }: 
           Zakolejkowane wydruki
         </button>
 
+        {/* Dodaj zlecenie */}
         <button 
           onClick={() => setActiveTab('dodaj')} 
           className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl font-medium text-sm transition cursor-pointer ${activeTab === 'dodaj' ? 'bg-blue-600 text-white shadow-md shadow-blue-500/10' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'}`}
@@ -29,6 +32,7 @@ export default function Sidebar({ activeTab, setActiveTab, isAdmin, onLogout }: 
           Dodaj zlecenie
         </button>
 
+        {/* Historia zleceń */}
         <button 
           onClick={() => setActiveTab('historia')} 
           className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl font-medium text-sm transition cursor-pointer ${activeTab === 'historia' ? 'bg-blue-600 text-white shadow-md shadow-blue-500/10' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'}`}
@@ -37,6 +41,16 @@ export default function Sidebar({ activeTab, setActiveTab, isAdmin, onLogout }: 
           Historia zleceń
         </button>
 
+        {/* NOWY PRZYCISK: Statystyki */}
+        <button 
+          onClick={() => setActiveTab('statystyki')} 
+          className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl font-medium text-sm transition cursor-pointer ${activeTab === 'statystyki' ? 'bg-blue-600 text-white shadow-md shadow-blue-500/10' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'}`}
+        >
+          <BarChart3 className="w-5 h-5" />  
+          Statystyki
+        </button>
+
+        {/* Panel Admina (tylko dla admina) */}
         {isAdmin && (
           <button 
             onClick={() => setActiveTab('admin')} 
@@ -48,9 +62,10 @@ export default function Sidebar({ activeTab, setActiveTab, isAdmin, onLogout }: 
         )}
       </div>
 
+      {/* Przycisk Wyloguj */}
       <button 
         onClick={onLogout}
-        className="w-full flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl font-bold text-sm text-red-600  hover:bg-red-50 border border-transparent hover:border-red-100 transition cursor-pointer"
+        className="w-full flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl font-bold text-sm text-red-600 hover:bg-red-50 border border-transparent hover:border-red-100 transition cursor-pointer"
       >
         <LogOut className="w-5 h-5" />  
         Wyloguj się

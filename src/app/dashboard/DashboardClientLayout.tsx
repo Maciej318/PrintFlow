@@ -10,9 +10,10 @@ import Sidebar from './components/Sidebar'
 import OrdersTable from './components/OrdersTable'
 import OrderForm from './components/OrderForm'
 import AdminPanel from './components/AdminPanel'
+import StatsChart from './components/StatsChart'
 
-export default function DashboardClientLayout({ userEmail, profile, initialOrders, initialWorkers, initialSettings }: any) {
-  const [activeTab, setActiveTab] = useState<'kolejka' | 'dodaj' | 'historia' | 'admin'>('kolejka')
+export default function DashboardClientLayout({ userEmail, profile, initialOrders, initialWorkers, initialSettings, statsOrders }: any) {
+  const [activeTab, setActiveTab] = useState<'kolejka' | 'dodaj' | 'historia' | 'statystyki' |'admin'>('kolejka')
   const router = useRouter()
   const supabase = createClient()
 
@@ -57,6 +58,10 @@ export default function DashboardClientLayout({ userEmail, profile, initialOrder
               costPerGram={initialSettings?.cost_per_gram ?? 0.15} 
               costPerHour={initialSettings?.cost_per_hour ?? 2.50} 
             />
+          )}
+
+          {activeTab === 'statystyki' && (
+            <StatsChart orders={statsOrders} />
           )}
 
           {activeTab === 'admin' && profile?.role === 'admin' && (

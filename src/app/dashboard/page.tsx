@@ -2,7 +2,7 @@ import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import DashboardClientLayout from './DashboardClientLayout'
-import { getAppSettings, getWorkers } from '@/actions'
+import { getAppSettings, getCompletedOrdersStats, getWorkers } from '@/actions'
 
 export default async function DashboardPage() {
   const cookieStore = await cookies()
@@ -35,6 +35,8 @@ export default async function DashboardPage() {
     settings = await getAppSettings()
   }
 
+  const statsOrders = await getCompletedOrdersStats()
+
   return (
     <DashboardClientLayout 
       userEmail={user.email || ''} 
@@ -42,6 +44,7 @@ export default async function DashboardPage() {
       initialOrders={orders || []}
       initialWorkers={workers}
       initialSettings={settings}
+      statsOrders={statsOrders}
     />
   )
 }

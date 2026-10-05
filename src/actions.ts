@@ -7,7 +7,6 @@ import { revalidatePath } from "next/cache"
 
 
 export async function login(formData:FormData) {
-  console.log("LOGIN");
     const cookieStore = await cookies()
     const supabase = createClient(cookieStore)
 
@@ -55,7 +54,7 @@ export async function createOrder(formData: FormData) {
   const estimatedCost = parseFloat(formData.get('estimated_cost') as string)
   const dueDate = formData.get('due_date') as string
   const notes = formData.get('notes') as string
-
+  const hours = parseFloat(formData.get('hours') as string)
   const file = formData.get('model_file') as File
   const image = formData.get('image_file') as File
 
@@ -85,6 +84,7 @@ export async function createOrder(formData: FormData) {
     image_path: imagePath || null,
     quantity,
     estimated_cost: estimatedCost,
+    hours: hours,
     due_date: dueDate,
     notes: notes || null
   })
@@ -240,4 +240,25 @@ export async function deleteOrder(orderId: string) {
   }
 
   return { success: true }
+}
+
+
+export async function getCompletedOrdersStats() {
+  const cookieStore = await cookies()
+  const supabase = createClient(cookieStore)
+
+  const {data, error} = await supabase
+    .from('orders')
+    .select('id, due_date, estimated_cost, quantity, hours')
+    .eq('status', 'completed')
+    .order('created_at', { ascending: true })
+
+  if (error) {
+    console.error('Błąd pobierania statystyk:', error)
+    return []
+  }
+
+  return data || []
+
+  
 }

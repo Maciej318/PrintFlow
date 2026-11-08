@@ -1,5 +1,6 @@
 import { login, signup } from '@/actions'
 import { CircleX, Bell } from 'lucide-react';
+import ThemeSwitcher from './dashboard/components/ThemeSwitcher'
 
 export default async function LoginPage(props: {
   searchParams: Promise<{ error?: string; message?: string }>
@@ -10,6 +11,9 @@ export default async function LoginPage(props: {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4 text-foreground">
+      <div className="absolute right-4 top-4">
+        <ThemeSwitcher />
+      </div>
       <div className="w-full max-w-md rounded-2xl border border-border bg-card p-8 shadow-2xl">
 
         <div className="mb-8 text-center">
@@ -53,15 +57,15 @@ export default async function LoginPage(props: {
 
    
           {error && (
-            <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-3 text-xs text-red-400">
-              <CircleX className='w-5 h-5'/>
+            <div className="rounded-lg border border-danger-500/20 bg-danger-500/10 p-3 text-xs text-danger-400">
+              <CircleX className='w-5 h-5 shrink-0'/>
               {error}
             </div>
           )}
 
           {message && (
-            <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-3 text-xs text-emerald-400">
-              <Bell className='w-5 h-5'/>
+            <div className="rounded-lg border border-success-500/20 bg-success-500/10 p-3 text-xs text-success-400">
+              <Bell className='w-5 h-5 shrink-0'/>
               {message}
             </div>
           )}
@@ -71,7 +75,7 @@ export default async function LoginPage(props: {
             <button
               type="submit"
               formAction={login}
-              className="w-full cursor-pointer rounded-lg bg-blue-600 p-3 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-500"
+              className="w-full cursor-pointer rounded-lg bg-brand-600 p-3 text-sm font-semibold text-white shadow-lg transition hover:bg-brand-500"
             >
               Zaloguj się
             </button>

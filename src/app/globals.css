@@ -1,19 +1,79 @@
 @import "tailwindcss";
 
-:root {
-  /* jasne, ale bardziej naturalne kolory */
-  --background: #f8fafc;   /* bardzo jasny niebiesko-szary */
-  --foreground: #0f172a;   /* ciemny granat (czytelniejszy niż #171717) */
-
-  --card: #ffffff;
-  --border: #e2e8f0;
-  --muted: #64748b;
-}
+/* Kolory semantyczne: Tailwind czyta je z ZMIENNYCH RUNTIME (--brand-600 itd.).
+   `@theme inline` sprawia, że klasy typu bg-brand-600 kompilują się do var(--brand-600),
+   więc zmiana data-theme na <html> od razu zmienia kolory. */
 
 @theme inline {
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+  --color-brand-950: var(--brand-950);
+  --color-success-50: var(--success-50);
+  --color-success-100: var(--success-100);
+  --color-success-200: var(--success-200);
+  --color-success-300: var(--success-300);
+  --color-success-400: var(--success-400);
+  --color-success-500: var(--success-500);
+  --color-success-600: var(--success-600);
+  --color-success-700: var(--success-700);
+  --color-success-800: var(--success-800);
+  --color-success-900: var(--success-900);
+  --color-success-950: var(--success-950);
+  --color-warning-50: var(--warning-50);
+  --color-warning-100: var(--warning-100);
+  --color-warning-200: var(--warning-200);
+  --color-warning-300: var(--warning-300);
+  --color-warning-400: var(--warning-400);
+  --color-warning-500: var(--warning-500);
+  --color-warning-600: var(--warning-600);
+  --color-warning-700: var(--warning-700);
+  --color-warning-800: var(--warning-800);
+  --color-warning-900: var(--warning-900);
+  --color-warning-950: var(--warning-950);
+  --color-danger-50: var(--danger-50);
+  --color-danger-100: var(--danger-100);
+  --color-danger-200: var(--danger-200);
+  --color-danger-300: var(--danger-300);
+  --color-danger-400: var(--danger-400);
+  --color-danger-500: var(--danger-500);
+  --color-danger-600: var(--danger-600);
+  --color-danger-700: var(--danger-700);
+  --color-danger-800: var(--danger-800);
+  --color-danger-900: var(--danger-900);
+  --color-danger-950: var(--danger-950);
+  --color-accent-50: var(--accent-50);
+  --color-accent-100: var(--accent-100);
+  --color-accent-200: var(--accent-200);
+  --color-accent-300: var(--accent-300);
+  --color-accent-400: var(--accent-400);
+  --color-accent-500: var(--accent-500);
+  --color-accent-600: var(--accent-600);
+  --color-accent-700: var(--accent-700);
+  --color-accent-800: var(--accent-800);
+  --color-accent-900: var(--accent-900);
+  --color-accent-950: var(--accent-950);
+  --color-violet-50: var(--violet-50);
+  --color-violet-100: var(--violet-100);
+  --color-violet-200: var(--violet-200);
+  --color-violet-300: var(--violet-300);
+  --color-violet-400: var(--violet-400);
+  --color-violet-500: var(--violet-500);
+  --color-violet-600: var(--violet-600);
+  --color-violet-700: var(--violet-700);
+  --color-violet-800: var(--violet-800);
+  --color-violet-900: var(--violet-900);
+  --color-violet-950: var(--violet-950);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
   --color-card: var(--card);
   --color-border: var(--border);
   --color-muted: var(--muted);
@@ -22,8 +82,354 @@
   --font-mono: var(--font-geist-mono);
 }
 
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --muted: #64748b;
+
+  --brand-50: #eff6ff;
+  --brand-100: #dbeafe;
+  --brand-200: #bfdbfe;
+  --brand-300: #93c5fd;
+  --brand-400: #60a5fa;
+  --brand-500: #3b82f6;
+  --brand-600: #2563eb;
+  --brand-700: #1d4ed8;
+  --brand-800: #1e40af;
+  --brand-900: #1e3a8a;
+  --brand-950: #172554;
+  --success-50: #ecfdf5;
+  --success-100: #d1fae5;
+  --success-200: #a7f3d0;
+  --success-300: #6ee7b7;
+  --success-400: #34d399;
+  --success-500: #10b981;
+  --success-600: #059669;
+  --success-700: #047857;
+  --success-800: #065f46;
+  --success-900: #064e3b;
+  --success-950: #022c22;
+  --warning-50: #fffbeb;
+  --warning-100: #fef3c7;
+  --warning-200: #fde68a;
+  --warning-300: #fcd34d;
+  --warning-400: #fbbf24;
+  --warning-500: #f59e0b;
+  --warning-600: #d97706;
+  --warning-700: #b45309;
+  --warning-800: #92400e;
+  --warning-900: #78350f;
+  --warning-950: #451a03;
+  --danger-50: #fef2f2;
+  --danger-100: #fee2e2;
+  --danger-200: #fecaca;
+  --danger-300: #fca5a5;
+  --danger-400: #f87171;
+  --danger-500: #ef4444;
+  --danger-600: #dc2626;
+  --danger-700: #b91c1c;
+  --danger-800: #991b1b;
+  --danger-900: #7f1d1d;
+  --danger-950: #450a0a;
+  --accent-50: #eef2ff;
+  --accent-100: #e0e7ff;
+  --accent-200: #c7d2fe;
+  --accent-300: #a5b4fc;
+  --accent-400: #818cf8;
+  --accent-500: #6366f1;
+  --accent-600: #4f46e5;
+  --accent-700: #4338ca;
+  --accent-800: #3730a3;
+  --accent-900: #312e81;
+  --accent-950: #1e1b4b;
+  --violet-50: #faf5ff;
+  --violet-100: #f3e8ff;
+  --violet-200: #e9d5ff;
+  --violet-300: #d8b4fe;
+  --violet-400: #c084fc;
+  --violet-500: #a855f7;
+  --violet-600: #9333ea;
+  --violet-700: #7e22ce;
+  --violet-800: #6b21a8;
+  --violet-900: #581c87;
+  --violet-950: #3b0764;
+}
+
+/* --- Daltonizm: czerwony/zielony --- */
+html[data-theme="rg"] {
+  --brand-50: #f0f7fa;
+  --brand-100: #dbebf4;
+  --brand-200: #b8d8e9;
+  --brand-300: #8abedc;
+  --brand-400: #529fcb;
+  --brand-500: #2486bd;
+  --brand-600: #0072b2;
+  --brand-700: #006096;
+  --brand-800: #004e79;
+  --brand-900: #003b5d;
+  --brand-950: #002940;
+  --success-50: #f0f7f5;
+  --success-100: #dbede9;
+  --success-200: #b8dbd2;
+  --success-300: #8ac5b5;
+  --success-400: #52a992;
+  --success-500: #249275;
+  --success-600: #00805f;
+  --success-700: #006c50;
+  --success-800: #005741;
+  --success-900: #004331;
+  --success-950: #002e22;
+  --warning-50: #fcf7f0;
+  --warning-100: #f7eddb;
+  --warning-200: #efdbb8;
+  --warning-300: #e5c48a;
+  --warning-400: #d9a852;
+  --warning-500: #cf9124;
+  --warning-600: #c77f00;
+  --warning-700: #a76b00;
+  --warning-800: #875600;
+  --warning-900: #674200;
+  --warning-950: #482e00;
+  --danger-50: #faf3f6;
+  --danger-100: #f3e2eb;
+  --danger-200: #e7c6d7;
+  --danger-300: #d7a1bd;
+  --danger-400: #c4749d;
+  --danger-500: #b44f83;
+  --danger-600: #a8326f;
+  --danger-700: #8d2a5d;
+  --danger-800: #72224b;
+  --danger-900: #571a3a;
+  --danger-950: #3c1228;
+  --accent-50: #f3f2f8;
+  --accent-100: #e2e0ee;
+  --accent-200: #c6c1de;
+  --accent-300: #a199c8;
+  --accent-400: #7469ae;
+  --accent-500: #504199;
+  --accent-600: #332288;
+  --accent-700: #2b1d72;
+  --accent-800: #23175c;
+  --accent-900: #1b1247;
+  --accent-950: #120c31;
+  --violet-50: #f8f2f5;
+  --violet-100: #eee0e7;
+  --violet-200: #dec1cf;
+  --violet-300: #c899b1;
+  --violet-400: #ae698b;
+  --violet-500: #99416d;
+  --violet-600: #882255;
+  --violet-700: #721d47;
+  --violet-800: #5c173a;
+  --violet-900: #47122c;
+  --violet-950: #310c1f;
+}
+
+/* --- Daltonizm: niebieski/żółty --- */
+html[data-theme="tritan"] {
+  --brand-50: #f3f4f5;
+  --brand-100: #e2e4e7;
+  --brand-200: #c6cacf;
+  --brand-300: #a1a8b1;
+  --brand-400: #747e8b;
+  --brand-500: #505c6d;
+  --brand-600: #334155;
+  --brand-700: #2b3747;
+  --brand-800: #232c3a;
+  --brand-900: #1b222c;
+  --brand-950: #12171f;
+  --success-50: #f1f7f3;
+  --success-100: #deede4;
+  --success-200: #bddbc9;
+  --success-300: #93c5a6;
+  --success-400: #60a97b;
+  --success-500: #369258;
+  --success-600: #15803d;
+  --success-700: #126c33;
+  --success-800: #0e5729;
+  --success-900: #0b4320;
+  --success-950: #082e16;
+  --warning-50: #fef5f0;
+  --warning-100: #fce8dd;
+  --warning-200: #f9d0bb;
+  --warning-300: #f5b28f;
+  --warning-400: #f18d5a;
+  --warning-500: #ed6f2e;
+  --warning-600: #ea580c;
+  --warning-700: #c54a0a;
+  --warning-800: #9f3c08;
+  --warning-900: #7a2e06;
+  --warning-950: #542004;
+  --danger-50: #f9f1f3;
+  --danger-100: #f2dee3;
+  --danger-200: #e4bdc8;
+  --danger-300: #d392a4;
+  --danger-400: #be5e78;
+  --danger-500: #ac3355;
+  --danger-600: #9f1239;
+  --danger-700: #860f30;
+  --danger-800: #6c0c27;
+  --danger-900: #53091e;
+  --danger-950: #390615;
+  --accent-50: #f1f7f8;
+  --accent-100: #ddecef;
+  --accent-200: #bcd8e0;
+  --accent-300: #90bfcc;
+  --accent-400: #5ba0b4;
+  --accent-500: #3087a0;
+  --accent-600: #0e7490;
+  --accent-700: #0c6179;
+  --accent-800: #0a4f62;
+  --accent-900: #073c4b;
+  --accent-950: #052a34;
+  --violet-50: #fbf1f5;
+  --violet-100: #f6dfe8;
+  --violet-200: #edbed2;
+  --violet-300: #e195b4;
+  --violet-400: #d36291;
+  --violet-500: #c73874;
+  --violet-600: #be185d;
+  --violet-700: #a0144e;
+  --violet-800: #81103f;
+  --violet-900: #630c30;
+  --violet-950: #440921;
+}
+
+/* --- Wysoki kontrast --- */
+html[data-theme="contrast"] {
+  --brand-50: #f0f3fa;
+  --brand-100: #dde3f3;
+  --brand-200: #bbc8e7;
+  --brand-300: #8fa4d7;
+  --brand-400: #5979c4;
+  --brand-500: #2d56b4;
+  --brand-600: #0b3aa8;
+  --brand-700: #09318d;
+  --brand-800: #072772;
+  --brand-900: #061e57;
+  --brand-950: #04153c;
+  --success-50: #f0f6f3;
+  --success-100: #dbeae4;
+  --success-200: #b8d6c8;
+  --success-300: #8abba5;
+  --success-400: #529a7a;
+  --success-500: #248057;
+  --success-600: #006b3c;
+  --success-700: #005a32;
+  --success-800: #004929;
+  --success-900: #00381f;
+  --success-950: #002716;
+  --warning-50: #f8f5f0;
+  --warning-100: #efe7db;
+  --warning-200: #e0cfb8;
+  --warning-300: #cbaf8a;
+  --warning-400: #b38952;
+  --warning-500: #9f6a24;
+  --warning-600: #8f5200;
+  --warning-700: #784500;
+  --warning-800: #613800;
+  --warning-900: #4a2b00;
+  --warning-950: #331e00;
+  --danger-50: #faf0f1;
+  --danger-100: #f4dbdf;
+  --danger-200: #eab8bf;
+  --danger-300: #dc8a96;
+  --danger-400: #cb5264;
+  --danger-500: #be243b;
+  --danger-600: #b3001b;
+  --danger-700: #960017;
+  --danger-800: #7a0012;
+  --danger-900: #5d000e;
+  --danger-950: #40000a;
+  --accent-50: #f3f2fb;
+  --accent-100: #e4e1f5;
+  --accent-200: #c8c4ea;
+  --accent-300: #a59ddd;
+  --accent-400: #7a6fcd;
+  --accent-500: #5649bf;
+  --accent-600: #3b2bb5;
+  --accent-700: #322498;
+  --accent-800: #281d7b;
+  --accent-900: #1f165e;
+  --accent-950: #150f41;
+  --violet-50: #f6f1fa;
+  --violet-100: #eadff4;
+  --violet-200: #d5bfe9;
+  --violet-300: #ba96db;
+  --violet-400: #9a64ca;
+  --violet-500: #7f3bbc;
+  --violet-600: #6a1bb1;
+  --violet-700: #591795;
+  --violet-800: #481278;
+  --violet-900: #370e5c;
+  --violet-950: #260a40;
+
+  /* mocniejsze szarości i obramowania */
+  --color-slate-300: #64748b;
+  --color-slate-400: #475569;
+  --color-slate-500: #334155;
+  --color-slate-600: #1e293b;
+  --border: #475569;
+  --muted: #334155;
+}
+
+/* --- Wysoki kontrast: obramowania WSZĘDZIE ---------------------------------
+   Aplikacja używa głównie border-slate-100/200 (karty, tabele, panel admina,
+   statystyki), których nie da się przyciemnić samą zmianą zmiennych, bo te same
+   odcienie slate są też tłami. Dlatego w tym motywie nadpisujemy kolor
+   obramowań bezpośrednio. Reguły są poza warstwami Tailwinda, więc mają
+   pierwszeństwo przed klasami narzędziowymi. */
+html[data-theme="contrast"] [class*="border-slate-"]:not([class*="border-slate-800"]),
+html[data-theme="contrast"] [class*="border-border"] {
+  border-color: var(--border);
+}
+
+/* linie rozdzielające wiersze tabel i list (divide-y) */
+html[data-theme="contrast"] [class*="divide-slate-"] > :not(:last-child) {
+  border-color: var(--border);
+}
+
+/* kolorowe obramowania statusów (ostrzeżenie, sukces, błąd, brand) – ciemniejsze */
+html[data-theme="contrast"] [class*="border-brand-100"],
+html[data-theme="contrast"] [class*="border-brand-200"] { border-color: var(--brand-700); }
+html[data-theme="contrast"] [class*="border-success-100"],
+html[data-theme="contrast"] [class*="border-success-200"] { border-color: var(--success-700); }
+html[data-theme="contrast"] [class*="border-warning-100"],
+html[data-theme="contrast"] [class*="border-warning-200"] { border-color: var(--warning-700); }
+html[data-theme="contrast"] [class*="border-danger-100"],
+html[data-theme="contrast"] [class*="border-danger-200"] { border-color: var(--danger-700); }
+
+/* pola formularzy: wyraźniejsza, grubsza ramka */
+html[data-theme="contrast"] input:not([type="checkbox"]):not([type="radio"]),
+html[data-theme="contrast"] select,
+html[data-theme="contrast"] textarea {
+  border-width: 2px;
+  border-color: var(--foreground);
+}
+html[data-theme="contrast"] input[type="checkbox"],
+html[data-theme="contrast"] input[type="radio"] {
+  border-color: var(--foreground);
+}
+
+/* wykresy (zakładka Statystyki): siatka i osie */
+html[data-theme="contrast"] .recharts-cartesian-grid line { stroke: var(--border); }
+html[data-theme="contrast"] .recharts-cartesian-axis-line,
+html[data-theme="contrast"] .recharts-cartesian-axis-tick-line { stroke: var(--foreground); }
+
+/* mocniejszy fokus */
+html[data-theme="contrast"] :focus-visible {
+  outline-width: 3px;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-600);
+  outline-offset: 2px;
 }

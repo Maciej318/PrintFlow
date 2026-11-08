@@ -71,7 +71,7 @@ export default function StatsChart({ orders }: StatsChartProps) {
       
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
+          <div className="p-3 bg-success-50 text-success-600 rounded-xl">
             <DollarSign className="w-6 h-6" />
           </div>
           <div>
@@ -81,7 +81,7 @@ export default function StatsChart({ orders }: StatsChartProps) {
         </div>
 
         <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="p-3 bg-blue-50 text-blue-600 rounded-xl">
+          <div className="p-3 bg-brand-50 text-brand-600 rounded-xl">
             <Package className="w-6 h-6" />
           </div>
           <div>
@@ -91,7 +91,7 @@ export default function StatsChart({ orders }: StatsChartProps) {
         </div>
 
         <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="p-3 bg-purple-50 text-purple-600 rounded-xl">
+          <div className="p-3 bg-violet-50 text-violet-600 rounded-xl">
             <Clock className="w-6 h-6" />
           </div>
           <div>
@@ -108,7 +108,7 @@ export default function StatsChart({ orders }: StatsChartProps) {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
           <div>
             <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-blue-600" />
+              <TrendingUp className="w-5 h-5 text-brand-600" />
               Analityka Zrealizowanych Wydruków
             </h3>
             <p className="text-xs text-slate-400">Tylko zlecenia ze statusem "Zrealizowany"</p>
@@ -121,10 +121,10 @@ export default function StatsChart({ orders }: StatsChartProps) {
                 type="checkbox" 
                 checked={showCost} 
                 onChange={(e) => setShowCost(e.target.checked)}
-                className="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer"
+                className="w-4 h-4 rounded border-slate-300 text-success-600 focus:ring-success-500 cursor-pointer"
               />
-              <span className="flex items-center gap-1 text-emerald-700">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"/>
+              <span className="flex items-center gap-1 text-success-700">
+                <span className="w-2.5 h-2.5 rounded-full bg-success-500 inline-block"/>
                 Suma (zł)
               </span>
             </label>
@@ -134,10 +134,10 @@ export default function StatsChart({ orders }: StatsChartProps) {
                 type="checkbox" 
                 checked={showQuantity} 
                 onChange={(e) => setShowQuantity(e.target.checked)}
-                className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                className="w-4 h-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer"
               />
-              <span className="flex items-center gap-1 text-blue-700">
-                <span className="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block"/>
+              <span className="flex items-center gap-1 text-brand-700">
+                <span className="w-2.5 h-2.5 rounded-full bg-brand-500 inline-block"/>
                 Ilość (szt)
               </span>
             </label>
@@ -147,10 +147,10 @@ export default function StatsChart({ orders }: StatsChartProps) {
                 type="checkbox" 
                 checked={showHours} 
                 onChange={(e) => setShowHours(e.target.checked)}
-                className="w-4 h-4 rounded border-slate-300 text-purple-600 focus:ring-purple-500 cursor-pointer"
+                className="w-4 h-4 rounded border-slate-300 text-violet-600 focus:ring-violet-500 cursor-pointer"
               />
-              <span className="flex items-center gap-1 text-purple-700">
-                <span className="w-2.5 h-2.5 rounded-full bg-purple-500 inline-block"/>
+              <span className="flex items-center gap-1 text-violet-700">
+                <span className="w-2.5 h-2.5 rounded-full bg-violet-500 inline-block"/>
                 Godziny (h)
               </span>
             </label>
@@ -164,25 +164,25 @@ export default function StatsChart({ orders }: StatsChartProps) {
               <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorCost" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                    <stop offset="5%" style={{ stopColor: 'var(--success-500)', stopOpacity: 0.3 }} />
+                    <stop offset="95%" style={{ stopColor: 'var(--success-500)', stopOpacity: 0 }} />
                   </linearGradient>
                   <linearGradient id="colorQuantity" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                    <stop offset="5%" style={{ stopColor: 'var(--brand-500)', stopOpacity: 0.3 }} />
+                    <stop offset="95%" style={{ stopColor: 'var(--brand-500)', stopOpacity: 0 }} />
                   </linearGradient>
                   <linearGradient id="colorHours" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#a855f7" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#a855f7" stopOpacity={0}/>
+                    <stop offset="5%" style={{ stopColor: 'var(--violet-500)', stopOpacity: 0.3 }} />
+                    <stop offset="95%" style={{ stopColor: 'var(--violet-500)', stopOpacity: 0 }} />
                   </linearGradient>
                 </defs>
 
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                <XAxis dataKey="date" stroke="#94a3b8" fontSize={12} tickLine={false} />
-                <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-slate-100)" />
+                <XAxis dataKey="date" stroke="var(--color-slate-400)" fontSize={12} tickLine={false} />
+                <YAxis stroke="var(--color-slate-400)" fontSize={12} tickLine={false} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '12px', color: '#fff', border: 'none' }}
-                  labelStyle={{ color: '#94a3b8', fontWeight: 'bold', marginBottom: '4px' }}
+                  contentStyle={{ backgroundColor: 'var(--color-slate-900)', borderRadius: '12px', color: '#fff', border: 'none' }}
+                  labelStyle={{ color: 'var(--color-slate-400)', fontWeight: 'bold', marginBottom: '4px' }}
                 />
 
                 
@@ -191,7 +191,7 @@ export default function StatsChart({ orders }: StatsChartProps) {
                     type="monotone" 
                     dataKey="cost" 
                     name="Suma (zł)" 
-                    stroke="#10b981" 
+                    stroke="var(--success-500)" 
                     strokeWidth={3}
                     fillOpacity={1} 
                     fill="url(#colorCost)" 
@@ -203,8 +203,9 @@ export default function StatsChart({ orders }: StatsChartProps) {
                     type="monotone" 
                     dataKey="quantity" 
                     name="Ilość (szt)" 
-                    stroke="#3b82f6" 
+                    stroke="var(--brand-500)" 
                     strokeWidth={3}
+                    strokeDasharray="8 4"
                     fillOpacity={1} 
                     fill="url(#colorQuantity)" 
                   />
@@ -215,8 +216,9 @@ export default function StatsChart({ orders }: StatsChartProps) {
                     type="monotone" 
                     dataKey="hours" 
                     name="Czas (h)" 
-                    stroke="#a855f7" 
+                    stroke="var(--violet-500)" 
                     strokeWidth={3}
+                    strokeDasharray="2 4"
                     fillOpacity={1} 
                     fill="url(#colorHours)" 
                   />
